@@ -1,0 +1,189 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+:root {
+  --orangeDark: #ff8c38;
+  --orangeLigh: #ffcc8d;
+  --backGroundColor: #fff7ed;
+  --blackForButtonsOnLinksFont: #161616;
+  --blackForFooter: #252525;
+  --ofLinks: #4d4d4d;
+  --footerFont: #aaaaaa;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+}
+
+a,
+li {
+  text-decoration: none;
+  color: var(--ofLinks);
+  font-size: 1rem;
+}
+
+img {
+  width: 100%;
+  object-fit: contain;
+  height: 100%;
+}
+
+button{
+  color: #ffffff;
+font-size: 16px;
+font-weight: 700;
+line-height: 32px;
+letter-spacing: 0em;
+text-align: center;
+border: none;
+border-radius: 5px ;
+}
+
+/* NavBar */
+.navbar {
+  background-color: var(--backGroundColor);
+  width: 100%;
+  /* height: 9rem; */
+  display: flex;
+  padding: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__logo {
+  width: 30%;
+  height: 41px;
+}
+.navbar__list {
+  width: 30%;
+}
+
+.navbar__list > ul {
+  display: flex;
+  gap: 10px;
+}
+
+/* NavBar finish Here */
+
+/* Hero Section */
+
+.hero {
+  width: 100dvw;
+  height:40rem;
+  background-image: url("./assets/homeBackG.svg");
+  display:flex;
+  background-repeat: no-repeat;
+  background-size: cover;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.hero > div {
+height: 60%;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+
+
+.hero__title {
+
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 42px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #fff;
+
+}
+
+.hero__text {
+  line-height: 24px;
+  color: #fff;
+}
+
+.hero__button{
+  background-color: var(--orangeDark);
+
+padding: 10px;
+
+
+  
+
+
+}
+
+/* Home finished */
+
+/*  About start */
+
+
+.about__informations {
+  padding: 20px;
+
+}
+.about__informations >h3{
+
+font-size: 32px;
+font-weight: 700;
+line-height: 38px;
+letter-spacing: 0em;
+margin-block: 20px;
+}
+
+
+.about__informations > p{
+
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+letter-spacing: 0em;
+margin-bottom: 20px;
+
+}
+
+.about__informations > div {
+  padding: 18px;
+  background-color: var(--orangeLigh);
+}
+
+
+.about__informations > div > h3 {
+ 
+font-size: 24px;
+font-weight: 700;
+line-height: 30px;
+letter-spacing: 0em;
+text-align: left;
+margin-bottom: 20px;
+
+}
+
+.about__button{
+  background-color: var(--blackForButtonsOnLinksFont);
+  padding: 10px;
+  color: white;
+}
