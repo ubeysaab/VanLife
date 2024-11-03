@@ -1,13 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
 :root {
-  --orangeDark: #ff8c38;
-  --orangeLigh: #ffcc8d;
   --backGroundColor: #fff7ed;
   --blackForButtonsOnLinksFont: #161616;
   --blackForFooter: #252525;
-  --ofLinks: #4d4d4d;
   --footerFont: #aaaaaa;
+  --green:#115359;
+  --ofLinks: #4d4d4d;
+  --orangeDark: #ff8c38;
+  --orangeMed:#E17654;
+
+  --orangeLigh: #ffcc8d;
+  --verylightOrange:#FFEAD0;
 }
 
 *,
@@ -49,8 +53,12 @@ img {
   height: 100%;
 }
 
+
+a,button{
+  cursor: pointer;
+}
 button{
-  color: #ffffff;
+color: #ffffff;
 font-size: 16px;
 font-weight: 700;
 line-height: 32px;
@@ -65,10 +73,12 @@ border-radius: 5px ;
   background-color: var(--backGroundColor);
   width: 100%;
   /* height: 9rem; */
+  /* border: 1px solid red; */
   display: flex;
   padding: 20px;
   align-items: center;
   justify-content: space-between;
+  margin:0;
 }
 
 .navbar__logo {
@@ -76,7 +86,8 @@ border-radius: 5px ;
   height: 41px;
 }
 .navbar__list {
-  width: 30%;
+  /* width: 30%; */
+
 }
 
 .navbar__list > ul {
@@ -186,4 +197,130 @@ margin-bottom: 20px;
   background-color: var(--blackForButtonsOnLinksFont);
   padding: 10px;
   color: white;
+}
+
+
+
+/* Vans Start */
+
+.vans{
+  background-color: var(--backGroundColor);
+  padding: 40px 20px;
+  
+
+}
+
+.vans__exploreOptions{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block: 20px;
+}
+
+.vans__explore > h3{
+  font-family: Inter;
+font-size: 1.8rem;
+font-weight: 700;
+line-height: 34px;
+letter-spacing: 0em;
+text-align: left;
+
+
+}
+
+.vans__option{
+  background-color: var(--verylightOrange);
+  padding: 10px 20px;
+}
+
+.vanslist{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  width: 100%;
+  /* border: 1px solid blue; */
+  justify-items: center;
+  gap: 20px;
+}
+
+.vancard{
+  width: 100%;
+}
+
+.vancard__img{
+  width: 100%;
+  height: 150px;
+}
+.vancard__img > img {
+  border-radius: 12px;
+  object-fit: cover;
+
+}
+
+.vancard__text {
+  display: flex;
+  justify-content: space-between;
+  margin-block: 5px;
+
+}
+.vancard__text > b,span{
+  display: block;
+}
+
+/* specific buttons */
+
+.btn{
+  border-radius: 5px;
+}
+.btn--simple {
+  background-color: var(--orangeMed);
+}
+
+.btn--luxury{
+  background-color: var(--blackForButtonsOnLinksFont);
+}
+
+.btn--rugged{
+  background-color:var(--green) ;
+}
+/* specific buttons finished  */
+
+/*  SingleVan*/
+
+.singlevan{
+  background-color: var(--verylightOrange);
+  padding: 20px;
+}
+
+.singlevan__img {
+  width: 100%;
+  height: 300px;
+  
+  /* border: 1px solid red; */
+  margin-block: 20px;
+}
+.singlevan__img img{
+  border-radius: 5px;
+  object-fit: fill;
+}
+.singlevan__container{
+  margin: 10px;
+}
+
+.singlevan  .vancard__text{
+margin-block: 10px;
+  flex-direction: column;
+gap: 10px;
+text-wrap: balance;
+}
+
+.singlevan .hero__button {
+  width: 100%;
+  margin-block: 20px;
+}
+
+
+.activeLink {
+  font-size: 1.2em;
+  font-weight: 900;
+  text-decoration: underline;
 }

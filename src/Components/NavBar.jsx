@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 // Importing images and components 
 
@@ -14,8 +14,25 @@ function NavBar() {
       </div>
       <div className='navbar__list' >
         <ul>
-          <Link to="/about"><li>About</li></Link>
-          <Link to="/vans"><li>Vans</li></Link>
+          <NavLink
+            className={({ isActive }) => {
+              return isActive ? "activeLink"
+                : ""
+            }}
+            to="/about"><li>About</li></NavLink >
+          <NavLink
+            className={({ isActive }) => {
+              return isActive ? "activeLink"
+                : ""
+            }}
+            to="/vans"><li>Vans</li></NavLink >
+          <NavLink
+            className={({ isActive }) => {
+              return isActive ? "activeLink"
+                : ""
+            }}
+
+            to="/host"><li>Host</li></NavLink >
         </ul>
       </div>
     </nav>
