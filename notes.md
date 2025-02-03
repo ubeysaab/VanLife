@@ -1,3 +1,19 @@
+- [React Router](#react-router)
+    - [Multiple Page Application \& Single Page Application](#multiple-page-application--single-page-application)
+    - [React Router Setup \& BrowserRoute](#react-router-setup--browserroute)
+    - [Routes](#routes)
+    - [Link](#link)
+    - [useParam](#useparam)
+    - [Nested Routes](#nested-routes)
+      - [Outlet](#outlet)
+        - [Relative Paths](#relative-paths)
+        - [IndexRoutes](#indexroutes)
+      - [To nest or no to nest](#to-nest-or-no-to-nest)
+      - [NavLink](#navlink)
+        - [end](#end)
+    - [Extra](#extra)
+    - [Quizes](#quizes)
+
 # React Router
 
 `npm install react-router-dom`
@@ -11,15 +27,17 @@ to understand what is _Client Side Routing_ we need to take a look of MPA&&SPA h
 
 _What is the difference between these two ?_
 **MPA**
-in a more traditional web site we have MPA the client is the browser and the server which is just a computer that usually lives outside or some where else
+in a more traditional web site we have **MPA** *the client is the browser* and *the server which is just a computer that usually lives outside or some where else*
 so when we go to the browser and navigate a website let's say _mysite.com_ a simplified version of what happen is a request is made to the server thats associate with the domain of _mysite.com_ and is request the HTML page that needed to display the webPage and at that point the server will do some processing it will grab the HTML page and it will also might evaluating some CSS or JS it could potentially be reaching out to a DATABASE or making API calls to other servers in the end with ultimate goal of putting together a completed _home page_ to send back to the browser in form of HTML file, that HTML file is send back as a response from the sever to our browser and our browser then load that page for us to view
-![MultiplePageApplication](./src/images//image.png)
+![MultiplePageApplication](./src/images/image.png)
 
-so then when we are look to at _home page_ we can go and click on _about page_ the url for this may will be _mysite.com/about_ which would then perform another request to the server the server again will would go to the same process as before then deliver the page to the browser and the browser then will replace the _old home page_ with _new about page_
+so then when we are look to at _home page_ we can go and click on _about page_ the url for this may will be _mysite.com/about_ which would then perform another request to the server the server again will would go to the same process as before, then deliver the page to the browser and the browser then will replace the _old home page_ with _new about page_
 
 <!-- TODO adding gif about MPA  -->
 
-from the browser infront of us it might look something more like the entirety of that page is discarded and replaced with entirety of the new page like a flicker and that tell tale flicker is a good way to know tha tyou are currenlty looking on at a MPA
+<!-- from the browser infront of us it might look something more like the entirety of that page is discarded and replaced with entirety of the new page like a flicker and that tell tale flicker is a good way to know tha tyou are currenlty looking on at a MPA -->
+The browser display in front of us might appear as a complete replacement of the current page with the new one, like a flicker.  That telltale flicker is a good indicator that you are viewing a Multi-Page Application (MPA).
+
 
 **SPA**
 how SPA differ
@@ -31,28 +49,28 @@ so that application is sent back to the browser
 
 ![alt text](./src/images/image-2.png)
 
-it's loaded into the browser and when new request like _mysite.com/about_ are made _oftentimes portions of that new page are able to load directly inside of the React app without any new request beign made out to the server_ that said the about page might sill need some extra information or data from server or API and so a requst could still be made out to a sever at which point it would do its job and this time instead of sending a new page back _because that view is already exists inside of React app itself_ it's likely only gonna be handling sending back somethings like _JSON data_
+it's loaded into the browser and when new request like _mysite.com/about_ are made _oftentimes portions of that new page are able to load directly inside of the React app without any new request beign made out to the server_ that said the about page might still need some extra information or data from server or API and so a requst could still be made out to a sever, at which point it would do its job and this time instead of sending a new page back _because that view is already exists inside of React app itself_ it's likely only gonna be handling sending back somethings like _JSON data_
 
-![alt text](./src/images//image-3.png)
+![alt text](./src/images/image-3.png)
 
 that JSON data gets sent back to our react app which then loads into the React app get consume by it and changes what ever view we are looking at to include the new Json data that we just loaded from the server.
 
-on the client side the real difference that we will see there is won't be the same flicker of the entire page when we're going from one page to the next because _we're not reloading the entire document it's just **oneDocument(onePage)** but the content on that page might change_ in essence what that does is it might swap out the home page content for the about page content because _the React app was loaded on the initial render of our website so it already knew what content the aboutPage was going to contain and it may or may not have had to reah out to a server to get some additional data_
+on the client side the real difference that we will see there is won't be the same flicker of the entire page when we're going from one page to the next because _we're not reloading the entire document it's just **oneDocument(onePage)** but the content on that page might change_ in essence what that does is it might swap out the home page content for the about page content because _the React app was loaded on the initial render of our website so it already knew what content the aboutPage was going to contain and it may or may not have had to reach out to a server to get some additional data_
 
 ### React Router Setup & BrowserRoute
 
 in order to set our project up to a SPA with routing usin ReactRouter we need to import few thing but the first thing we gonna import is `BrowserRouter`
-what `BrowserRouter` is do under the hood is it a context provider an so in order to give our app the power to include routing in its functionality we need to _wrap_ the app with `BrowserRouter`
+what `BrowserRouter` is do under the hood is it a ``context provider`` an so in order to give our app the power to include routing in its functionality we need to _wrap_ the app with `BrowserRouter`
 
 ### Routes
 
-as we've mentioned BrowserRouter is a context provider and its provide context to all of its children components. so BrowserRouter is the Provider we need to setup away to define the routes that we want in our application and to do it there are two component to pull in order to start setting up
+as we've mentioned `BrowserRouter` is a `context provider` and its provide context to all of its children components. so BrowserRouter is the Provider we need to setup away to define the routes that we want in our application, to do it there are two component to pull in order to start setting up
 
-- Routes : goes as the first child of BR
+- `Routes` : goes as the first child of `BrowserRouter`
 
-- Route : is just a part of our URL that specifies where on website we are "example.com/_route_"
+- `Route` : is just a part of our URL that specifies where on website we are "example.com/_route_"
 
-> Routes can be nesting for example if we have "example.com/blog" we might wanna specify that we have another route as part of this URL and that leads us to "example.com/blog/_article1_" often time blog will use the title of the blos as this part of url or can using a _idNumber_ where it specifies for the database under the hood which blog ID number it should be looking for
+> Routes can be nesting for example if we have "example.com/blog" we might wanna specify that we have another route as part of this URL and that leads us to "example.com/blog/_article1_" often time blog will use the title of the blog as this part of url or can using a _idNumber_ where it specifies for the database under the hood which blog ID number it should be looking for
 
 ```jsx
 import React from "react";
@@ -82,13 +100,15 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 ### Link
 
 it's a bet annoying to have to go up to the Url section just to change which route we're in.
-And we can see when we do that the page is actually blinking which means it's refreshing it's doing a complete full page refresh _it's not that big of the deal when we consider about the blink but if we have any kind of state living in our app that needs to be passed to 'about' page or well really state at all doing that page refresh is gonna completely wipe out any state that we're maintaining_
+And we can see when we do that the page is actually blinking which means it's refreshing it's doing a complete full page refresh _While the visual flicker itself isn't a major issue, the page refresh *does* cause a significant problem.  If our application relies on maintaining state (data) that needs to be carried over to the "About" page (or any other page), that full page refresh will completely erase that state._
+<!-- 
+ _it's not that big of the deal when we consider about the blink but if we have any kind of state living in our app that needs to be passed to 'about' page or well really state at all doing that page refresh is gonna completely wipe out any state that we're maintaining_ -->
 
 > if we really think about it a React app is a little bit delicate when it comes to state becasue if that refresh happens then all our state just completely disappears unless we're saving it in local storage or something like that it will just completely reset.
 
 the way to solve this problem in HTML is to have `<a>` but the problem with `<a>` is when we click it it will do another page refresh so we need some way to navigate between our different routes within the ecosystem of react router Dom and the way to do it is by using `<Link>`
 
-Link is just a `<a>` but it's intercepting the path that the `<a>` is sending us to and making sure it doesn't that page refresh so we can maintain our states
+Link is just a `<a>` but it's intercepting the path that the `<a>` is sending us to, and making sure it doesn't do that page refresh so we can maintain our states
 
 <!-- VAnlist page skeletonUI  -->
 
@@ -100,7 +120,7 @@ Link is just a `<a>` but it's intercepting the path that the `<a>` is sending us
 
 React router provide a tool called `useParams` which allow us to grab any of the parameter that we have in our URL
 
-**useParams :** will look at any sections of the path that have ':' before it and will add that as the 'key' in the {key:value}pair in the object that we gets from useParams
+**useParams :** will **look at any sections of the path that have `:` before it** and **will add that as the `key` in the `{key:value}` pair** in the **object** that we gets from useParams
 
 > There is no thing stoping us from having multiple params inside of our URL
 
@@ -108,12 +128,11 @@ React router provide a tool called `useParams` which allow us to grab any of the
 ```jsx
 <Route path="/vans/:id/:type" element={<VanDetail />} />
 
-
-// output of use param as example will be {id: "1", type: "rugged"} 
 ```
 
-> useParams return an object be aware of that
+> useParams return an **object** be aware of that
 
+**TODO**
 [] we can add params as a dependency to useEffect  in detailed van page if we supposed to go from there to another van page (if we do any recommendations)
 
 ### Nested Routes
@@ -125,14 +144,27 @@ a way to think of it is share UI pieces on the site even if we navigate to annot
 
 ![alt text](./src/images/image-5.png)
 
-The primary reason that suggested to consider nested routes is when we have part of our page that we wanna keep but also we wanna display some more stuff to
+> The primary reason that suggested to consider nested routes is when we have part of our page that we wanna keep but also we wanna display some more stuff to
 
 #### Outlet
-<!-- The idea of layout route is taht it  doesn't have a path of tis own per se  but instead its purpose is to lay out our page   -->
-
-if we doing some thing like this
+The idea of the `outlet` route is that it doesn't have a path of its own purse but instead, its purpose **is to lay out our page**
 
 ```jsx
+
+
+
+function layout() {
+  return (
+    <>
+
+    <NavBar/>
+      <Outlet/>
+    <Footer/>
+    
+    </>
+  )
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -149,9 +181,9 @@ function App() {
 }
 ```
 
-then we would have access to our Route components inside of our layout through `{children} prop` and this isn't the right way to do it because reactRouter is not be able to render the route elements correctly if we do that.
+💀then we would have access to our Route components inside of our layout through `{children}` prop and this isn't the right way to do it because reactRouter is not be able to render the route elements correctly if we do that.💀
 
-so when we have our Layout as an element that we passing to Router definition this is Special tool that React router provide to us so we can render the layout but then also tell it exactly where to redner which ever router we correctly matching on the url and this tool is `Outlet`
+so when we have our Layout as an element that we passing to Router definition this is Special tool that React router provide to us, so we can render the layout, but then also tell it exactly where to redner which ever router that correctly matching  the url(path) that passing down and this tool is `Outlet`
 
 > The way React Router is working is it is matching multiple routes and deciding that multiple things can go on the page at one time
 
@@ -167,27 +199,29 @@ so when we have our Layout as an element that we passing to Router definition th
 
 
           // OR
+  //  nested routes 
    <Route element={<HostLayout />}>
             <Route path="/host" element={<Dashboard />} />
             <Route path="/host/income" element={<Income />} />
             <Route path="/host/reviews" element={<Reviews />} />
-          </Route>
-        </Route>
+    </Route>
+
 
 
 ```
 
 > as result Outlet : is place holder for nested routes to come and take it's place in layoutRoute Component when path is match
+> The `Outlet` component is similar to the concept of `children` in React's compound components, serving as a placeholder where child route elements will render.
 
-[ ] is sort  of the concept of children in compound compenents in react wher it's a place holder for the children route elements will render
 
 ##### Relative Paths
 
-The way that ReactRouter is works under the hood is when it is looking at a child route like `/host/income` and etc inside that context of the root it knows that this route is a child of `/`. until now we included `/` at the beginning of every one of our paths *but the truth that is we don't need to do that all the time* and in fact it's gonna end up making or lives a lot easier to not have to have an absolute path like this every time,cause this Url that give us the complete view of the path from the very home page at `/` all the way to the end.
+The way that ReactRouter is works under the hood, is when it is looking at a child route like `/host/income` and etc.. inside that context of the `root(" is the base URL of your application.")` it knows that this route is a child of `/`. 
+Until now we included `/` at the beginning of every one of our paths *but the truth that is we don't need to do that all the time*, *and in fact it's gonna end up making or lives a lot easier to not have to have an absolute path like this every time*,because this Url  give us the complete view of the path from the very home page at `/` all the way to the end.
 
 The Idea behind this is that the `/` really should mean and should be _dedicated_ for the very initial _Home Page_ if we start our path with `/` then react router gonna treat it like an absolute path and as we seen we can use that.
 
-but if we do not use `/` at the beginning then it treats it like a relative route and what is it relative to ?? well it's relative to its parent route
+**but if we do not use `/` at the beginning then it treats it like a relative route. What is it relative to ?? well it's relative to its parent route**
 
 ```jsx
 <Routes>
@@ -210,15 +244,16 @@ but if we do not use `/` at the beginning then it treats it like a relative rout
 
 <!-- conundrum -->
 
-It's pretty common that when we're creating a nested route scenario like we have above _to put some sort of layout element_ at the parent of that nested Route Series that we're creating .This layout element, is of course as we've learned the one where *all of the shared UI gonna be exposed* and then every thing else*that matches more nested inside*of it will just go into the `<Outlet>` of the parent layout component.
+It's pretty common that when we're creating a nested route scenario like we have above _to put some sort of layout element_ at the parent of that nested Route Series that we're creating .
+This layout element, is of course as we've learned the one where *all of the shared UI gonna be exposed* and then every thing else*that matches more nested inside*of it will just go into the `<Outlet>` of the parent layout component.
 
-because this is pretty common setup in react router there's a way for us to say okay this is the layout element and this layout should exist on every route start with `something` but _when we go there we also have component that we want to render in the `<Outlet/>` of this_ `somethingLayout` component and not at some further nested url like `something/nest` and the way we can do that is by using `IndexRoutes`
+because this is pretty common setup in react router there's a way for us to say okay this is the layout element and this layout should exist on every route start with `something` but _when we go there we also have component that we want to render in the `<Outlet/>` of this_ `somethingLayout` component, and not at some further nested url like `something/nest` and the way we can do that is by using `IndexRoutes`
 
 > The main take away : if we have an element that we want to display in the `<Outlet/>` of the layout component but we want to be at the same route as what the layoutComponent is defined at, then we simply replace our path with prop call **index**
 
-> when path start with `/` is an absolute path so adding `/` mean that the component we're render would only display at the top level `/` path it's like would be the home page so `/` not gonna work for us because **that's and indicator to ReactRouter that it's an absolute path**
+> when path start with `/` is an absolute path so adding `/` mean that the component we're render would only display at the top level `/` path it's like would be the home page so `/` not gonna work for us because **that's  indicator to ReactRouter that it's an absolute path**
 
-as a summary: what index is saying i want you to put this element(indexElement) inside the `<Outlet/>` of the parent route when it matches.
+***as a summary:*** what index is saying i want you to put this element(indexElement) inside the `<Outlet/>` of the parent route when it matches.
 so when the path is just `/` then first render the layout and then inside the <Outlet/> stick in the home element.
 
 ```jsx
@@ -242,25 +277,7 @@ so when the path is just `/` then first render the layout and then inside the <O
 
 **When the pages have the same parent path but doesn't share the same UI between, there is not necessarily reason for us to nest a route for just `:id` portion**
 
-<!-- for the sake of play around  
 
- 
-   * Thought experiment:
-   * 
-   * Re-write the vans route as a nested route. Because there's no shared
-   * UI between /vans and /vans/:id, the parent "vans" route won't have its
-   * own `element` prop, just a `path` prop.
-   * 
-   * Hint: you're not creating a Layout Route (since that's only for
-   * shared UI), but you are using another kind of "pathless" route...
-
-
-
-
-
-
-
- -->
 
 #### [NavLink](https://reactrouter.com/en/main/components/nav-link)
 [ ] render props 
