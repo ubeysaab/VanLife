@@ -322,7 +322,15 @@ what above note means when we have url like this "/host/reviews" under the hood 
 
 ##### [end](https://reactrouter.com/en/main/components/nav-link#end)
 
-basically what `end` does it is tell React Router to end the matching here so if more nested routes matches, it won't also match this link on the selected route
+<!-- basically what `end` does it is tell React Router to **end** the matching here so if more nested routes matches, it won't also match this link on the selected route -->
+
+The `end` prop in React Router ensures an exact match.  If set, the route will only match if the URL exactly matches the path.  Without end, a route could match even if the URL has additional path segments
+
+Example Analogy
+
+Imagine we have two routes: `/users` and `/users/profile`.  Without the `end` prop on the `/users` route, both URLs would match `/users`.  Setting end to true on the `/users` route makes it match only `/users`, preventing it from also matching `/users/profile`.  This ensures that only the most specific route is considered active.
+
+
 
 > *L*ittle Funny note when we provide a prop name and not set it equal to some thing it considers it a `boolean` `  <NavLink to="/host"   'end={true} or just end' style={({ isActive }) => isActive ? activeStyles : null} >`
 

@@ -68,6 +68,14 @@ border: none;
 border-radius: 5px ;
 }
 
+
+
+.site-wrapper {
+  min-height: 100vh;
+}
+main{
+ min-height: calc(100dvh - 150px);
+}
 /* NavBar */
 .navbar {
   background-color: var(--backGroundColor);
@@ -245,6 +253,66 @@ text-align: left;
 .vancard{
   width: 100%;
 }
+.vancard--horizontal{
+  height: 100px;
+  width:90%;
+  margin-inline: auto;
+  box-shadow: 2px 1px 0 3px black,-2px -1px 0 3px black;
+  /* border: 1px solid blue; */
+}
+
+.vancard--horizontal ~ .vancard--horizontal{
+  margin-top: 15px;
+}
+.vancard--horizontal > a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+
+}
+.vancard--horizontal > a > .vancard__img {
+  width: 66px;
+  height: 66px;
+  /* border: 1px solid purple; */
+}
+
+.vancard--host{
+  height: auto;
+  box-shadow: none;
+}
+
+.vancard--host > a > .vancard__img {
+  width:160px;  height: 160px;
+}
+
+.vancard--horizontal > a > .vancard__img > img{
+border-radius: 5px;
+}
+
+
+
+.vancard--horizontal > a > .vancard__text{
+  /* border: 1px solid green; */
+  display: block;
+  height:100%;
+  flex-grow: 1;
+
+}
+
+.vancard--host > a > .vancard__text >*+*{
+margin-top: 10px;
+
+}
+
+.vancard--host > a > .vancard__text > b {
+  font-weight: 700;
+  font-size: 2rem;
+  
+  }
+
+
+
 
 .vancard__img{
   width: 100%;
@@ -260,6 +328,7 @@ text-align: left;
   display: flex;
   justify-content: space-between;
   margin-block: 5px;
+  /* border: 1px solid red; */
 
 }
 .vancard__text > b,span{

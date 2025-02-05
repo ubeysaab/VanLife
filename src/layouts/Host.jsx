@@ -21,9 +21,14 @@ function Host() {
             to={"/host/income"}>
             Income
           </NavLink>
-          {/* <NavLink to={"/host/vans"}>
+          <NavLink to={"/host/vans"}
+           className={({isActive})=>{
+            return isActive ?"activeLink"
+          :""}}
+          
+          >
             Vans
-          </NavLink> */}
+          </NavLink>
           <NavLink
             className={({isActive})=>{
               return isActive ?"activeLink"

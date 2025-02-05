@@ -8,15 +8,16 @@ import './App.css'
 import Layout from './layouts/Layout'
 import Home from "./Pages/Home"
 import About from "./Pages/About"
-import Vans from "./Pages/Vans"
-import NavBar from "./Components/NavBar"
-import Footer from './Components/Footer'
-import SingleVan from './Pages/SingleVan'
+import Vans from "./Pages/vans/Vans"
+
+import HostVans from './Pages/host/HostVans'
+import HostVanDetails from './Pages/host/HostVanDetails'
+import SingleVan from './Pages/vans/SingleVan'
 import "./server"
 import HostLayout from './layouts/Host'
-import Income from './Pages/Income'
-import Reviews from './Pages/Reviews'
-import Dashboard from './Pages/Dashboard'
+import Income from './Pages/host/Income'
+import Reviews from './Pages/host/Reviews'
+import Dashboard from './Pages/host/Dashboard'
 
 function App() {
 
@@ -41,6 +42,9 @@ function App() {
             <Route path='' element={<Dashboard />} />
             <Route path="income" element={<Income />} />
             <Route path="reviews" element={<Reviews />} />
+            <Route path="vans" element={<HostVans />} />
+            <Route path="vans/:id" element={<HostVanDetails />} />
+
           </Route>
 
         </Route>

@@ -32,7 +32,7 @@ function NavBar() {
                 : ""
             }}
 
-            to="/host"><li>Host</li></NavLink >
+            to="/host"  ><li>Host</li></NavLink >
         </ul>
       </div>
     </nav>

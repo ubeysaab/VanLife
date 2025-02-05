@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import VanCard from '../Components/VanCard'
-import { createServer,Model } from "miragejs"
+import VanCard from '../../Components/VanCard'
+
 
 
 
@@ -31,6 +31,8 @@ function Vans() {
     .then(data => setVansData(data.vans))
 
   },[])
+  // console.log('you are in vans page')
+
   return (
     <section className="vans">
       <div className="vans__explore">

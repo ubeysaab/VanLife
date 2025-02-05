@@ -7,9 +7,13 @@ function layout() {
   return (
     <>
 
-    <NavBar/>
-      <Outlet/>
-    <Footer/>
+<div className="site-wrapper">
+            <NavBar />
+            <main>
+                <Outlet />
+            </main>
+            <Footer />
+        </div>
     
     </>
   )
