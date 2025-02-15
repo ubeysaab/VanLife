@@ -15,7 +15,7 @@ const [hostVans,setHostVans]= useState([])
   return (
     
     <section>
-      { hostVans.map(item => <VanCard name={item.name} horizontal imageUrl={item.imageUrl} price={item.price} id={item.id}/>)}
+      { hostVans.map(item => <VanCard name={item.name}  horizontal imageUrl={item.imageUrl} price={item.price} id={item.id}/>)}
     </section>
   )
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 function Host() {
   return (
+    // TODO : THE COMPONENT (NAV) WHICH WE USE HERE IT CAN BE REUSABLE COMPONENT BECAUSE WE WILL USE THE SAME ARCHITECTURE IN HOSTVANDETAILS SO MAKE IT COMPOUND COMPONENT
     <section >
       {/* <div>Host layout </div> */}
       <nav className=''>
@@ -11,17 +12,17 @@ function Host() {
             className={({isActive})=>{
               return isActive ?"activeLink"
             :""}}
-            to={"/host"}>
+            to={"."}>
             Dashboard
           </NavLink>
           <NavLink
             className={({isActive})=>{
               return isActive ?"activeLink"
             :""}}
-            to={"/host/income"}>
+            to={"income"}>
             Income
           </NavLink>
-          <NavLink to={"/host/vans"}
+          <NavLink to={"vans"}
            className={({isActive})=>{
             return isActive ?"activeLink"
           :""}}
@@ -33,17 +34,15 @@ function Host() {
             className={({isActive})=>{
               return isActive ?"activeLink"
             :""}}
-            to={"/host/reviews"}>
+            to={"reviews"}>
             Review
           </NavLink>
 
         </ul>
       </nav>
       <Outlet />
-
-
     </section>
-  )
+  )                     
 }
 
 export default Host
