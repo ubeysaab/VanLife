@@ -5,19 +5,23 @@
   --blackForButtonsOnLinksFont: #161616;
   --blackForFooter: #252525;
   --footerFont: #aaaaaa;
-  --green:#115359;
+  --green: #115359;
   --ofLinks: #4d4d4d;
   --orangeDark: #ff8c38;
-  --orangeMed:#E17654;
+  --orangeMed: #E17654;
 
   --orangeLigh: #ffcc8d;
-  --verylightOrange:#FFEAD0;
+  --verylightOrange: #FFEAD0;
 }
 
 *,
 *::after,
 *::before {
   box-sizing: border-box;
+}
+
+.border-red {
+  border: 1px solid red;
 }
 
 body {
@@ -54,18 +58,20 @@ img {
 }
 
 
-a,button{
+a,
+button {
   cursor: pointer;
 }
-button{
-color: #ffffff;
-font-size: 16px;
-font-weight: 700;
-line-height: 32px;
-letter-spacing: 0em;
-text-align: center;
-border: none;
-border-radius: 5px ;
+
+button {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0em;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
 }
 
 
@@ -73,9 +79,11 @@ border-radius: 5px ;
 .site-wrapper {
   min-height: 100vh;
 }
-main{
- min-height: calc(100dvh - 150px);
+
+main {
+  min-height: calc(100dvh - 150px);
 }
+
 /* NavBar */
 .navbar {
   background-color: var(--backGroundColor);
@@ -86,21 +94,24 @@ main{
   padding: 20px;
   align-items: center;
   justify-content: space-between;
-  margin:0;
+  margin: 0;
 }
 
 .navbar__logo {
   width: 30%;
   height: 41px;
 }
-.navbar__list {
-  /* width: 30%; */
 
+
+.navbar__list>ul {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.navbar__list > ul {
-  display: flex;
-  gap: 10px;
+.navbar__list>ul>.icon {
+  width: 24px;
+  height: 24px;
 }
 
 /* NavBar finish Here */
@@ -109,9 +120,9 @@ main{
 
 .hero {
   width: 100dvw;
-  height:40rem;
+  height: 40rem;
   background-image: url("./assets/homeBackG.svg");
-  display:flex;
+  display: flex;
   background-repeat: no-repeat;
   background-size: cover;
   justify-content: center;
@@ -119,11 +130,11 @@ main{
   padding: 20px;
 }
 
-.hero > div {
-height: 60%;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
+.hero>div {
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 
@@ -144,13 +155,13 @@ justify-content: space-between;
   color: #fff;
 }
 
-.hero__button{
+.hero__button {
   background-color: var(--orangeDark);
 
-padding: 10px;
+  padding: 10px;
 
 
-  
+
 
 
 }
@@ -164,44 +175,45 @@ padding: 10px;
   padding: 20px;
 
 }
-.about__informations >h3{
 
-font-size: 32px;
-font-weight: 700;
-line-height: 38px;
-letter-spacing: 0em;
-margin-block: 20px;
+.about__informations>h3 {
+
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38px;
+  letter-spacing: 0em;
+  margin-block: 20px;
 }
 
 
-.about__informations > p{
+.about__informations>p {
 
-font-size: 16px;
-font-weight: 500;
-line-height: 22px;
-letter-spacing: 0em;
-margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: 0em;
+  margin-bottom: 20px;
 
 }
 
-.about__informations > div {
+.about__informations>div {
   padding: 18px;
   background-color: var(--orangeLigh);
 }
 
 
-.about__informations > div > h3 {
- 
-font-size: 24px;
-font-weight: 700;
-line-height: 30px;
-letter-spacing: 0em;
-text-align: left;
-margin-bottom: 20px;
+.about__informations>div>h3 {
+
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-bottom: 20px;
 
 }
 
-.about__button{
+.about__button {
   background-color: var(--blackForButtonsOnLinksFont);
   padding: 10px;
   color: white;
@@ -211,114 +223,120 @@ margin-bottom: 20px;
 
 /* Vans Start */
 
-.vans{
+.vans {
   background-color: var(--backGroundColor);
   padding: 40px 20px;
-  
+
 
 }
 
-.vans__exploreOptions{
+.vans__exploreOptions {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-block: 20px;
 }
 
-.vans__explore > h3{
+.vans__explore>h3 {
   font-family: Inter;
-font-size: 1.8rem;
-font-weight: 700;
-line-height: 34px;
-letter-spacing: 0em;
-text-align: left;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 34px;
+  letter-spacing: 0em;
+  text-align: left;
 
 
 }
 
-.vans__option{
+.vans__option {
   background-color: var(--verylightOrange);
   padding: 10px 20px;
 }
 
-.vanslist{
+.vanslist {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2, 1fr);
   width: 100%;
   /* border: 1px solid blue; */
   justify-items: center;
   gap: 20px;
 }
 
-.vancard{
+.vancard {
   width: 100%;
 }
-.vancard--horizontal{
+
+.vancard--horizontal {
   height: 100px;
-  width:90%;
+  width: 90%;
   margin-inline: auto;
-  box-shadow: 2px 1px 0 3px black,-2px -1px 0 3px black;
+  box-shadow: 2px 1px 0 3px black, -2px -1px 0 3px black;
   /* border: 1px solid blue; */
 }
 
-.vancard--horizontal ~ .vancard--horizontal{
+.vancard--horizontal~.vancard--horizontal {
   margin-top: 15px;
 }
-.vancard--horizontal > a {
+
+.vancard--horizontal>a {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 20px;
 
 }
-.vancard--horizontal > a > .vancard__img {
+
+.vancard--horizontal>a>.vancard__img {
   width: 66px;
   height: 66px;
   /* border: 1px solid purple; */
 }
 
-.vancard--host{
+.vancard--host {
   height: auto;
   box-shadow: none;
 }
 
-.vancard--host > a > .vancard__img {
-  width:160px;  height: 160px;
-}
-
-.vancard--horizontal > a > .vancard__img > img{
-border-radius: 5px;
+.vancard--host>a>.vancard__img {
+  width: 250px;
+  height: 160px;
 }
 
 
+.vancard--horizontal>a>.vancard__img>img {
+  border-radius: 5px;
+}
 
-.vancard--horizontal > a > .vancard__text{
+
+
+.vancard--horizontal>a>.vancard__text {
   /* border: 1px solid green; */
   display: block;
-  height:100%;
+  height: 100%;
   flex-grow: 1;
 
 }
 
-.vancard--host > a > .vancard__text >*+*{
-margin-top: 10px;
+.vancard--host>a>.vancard__text>*+* {
+  margin-top: 10px;
 
 }
 
-.vancard--host > a > .vancard__text > b {
+.vancard--host>a>.vancard__text>b {
   font-weight: 700;
   font-size: 2rem;
-  
-  }
+
+}
 
 
 
 
-.vancard__img{
+.vancard__img {
   width: 100%;
   height: 150px;
 }
-.vancard__img > img {
+
+.vancard__img>img {
   border-radius: 12px;
   object-fit: cover;
 
@@ -331,31 +349,35 @@ margin-top: 10px;
   /* border: 1px solid red; */
 
 }
-.vancard__text > b,span{
+
+.vancard__text>b,
+span {
   display: block;
 }
 
 /* specific buttons */
 
-.btn{
+.btn {
   border-radius: 5px;
 }
+
 .btn--simple {
   background-color: var(--orangeMed);
 }
 
-.btn--luxury{
+.btn--luxury {
   background-color: var(--blackForButtonsOnLinksFont);
 }
 
-.btn--rugged{
-  background-color:var(--green) ;
+.btn--rugged {
+  background-color: var(--green);
 }
+
 /* specific buttons finished  */
 
 /*  SingleVan*/
 
-.singlevan{
+.singlevan {
   background-color: var(--verylightOrange);
   padding: 20px;
 }
@@ -363,23 +385,25 @@ margin-top: 10px;
 .singlevan__img {
   width: 100%;
   height: 300px;
-  
+
   /* border: 1px solid red; */
   margin-block: 20px;
 }
-.singlevan__img img{
+
+.singlevan__img img {
   border-radius: 5px;
   object-fit: fill;
 }
-.singlevan__container{
+
+.singlevan__container {
   margin: 10px;
 }
 
-.singlevan  .vancard__text{
-margin-block: 10px;
+.singlevan .vancard__text {
+  margin-block: 10px;
   flex-direction: column;
-gap: 10px;
-text-wrap: balance;
+  gap: 10px;
+  text-wrap: balance;
 }
 
 .singlevan .hero__button {
