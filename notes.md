@@ -6,11 +6,26 @@
     - [useParam](#useparam)
     - [Nested Routes](#nested-routes)
       - [Outlet](#outlet)
-        - [Relative Paths](#relative-paths)
+        - [Relative Paths (Routes)](#relative-paths-routes)
         - [IndexRoutes](#indexroutes)
       - [To nest or no to nest](#to-nest-or-no-to-nest)
       - [NavLink](#navlink)
         - [end](#end)
+        - [Relative Links](#relative-links)
+      - [Outlet Context](#outlet-context)
+    - [Search/Query Parameters](#searchquery-parameters)
+      - [UseSearchParams](#usesearchparams)
+        - [Merge Existing QueryParameters](#merge-existing-queryparameters)
+      - [**Link State** So You Don't Loose Your Filters While Navigate Around](#link-state-so-you-dont-loose-your-filters-while-navigate-around)
+      - [useLocation](#uselocation)
+    - [404 Page](#404-page)
+    - [Happy vs. Sad Paths](#happy-vs-sad-paths)
+      - [Data Layer API's](#data-layer-apis)
+        - [Loaders](#loaders)
+    - [Protected Routes](#protected-routes)
+      - [Navigate](#navigate)
+        - [Navigation State](#navigation-state)
+    - [History Stack](#history-stack)
     - [Extra](#extra)
     - [Quizes](#quizes)
 
@@ -73,6 +88,8 @@ as we've mentioned `BrowserRouter` is a `context provider` and its provide conte
 > Routes can be nesting for example if we have "example.com/blog" we might wanna specify that we have another route as part of this URL and that leads us to "example.com/blog/_article1_" often time blog will use the title of the blog as this part of url or can using a _idNumber_ where it specifies for the database under the hood which blog ID number it should be looking for
 
 ```jsx
+
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -88,7 +105,7 @@ function About() {
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />} />
+      <Route path="/" element={<App />} /> 
       <Route path="/about" element={<About />} />
     </Routes>
   </BrowserRouter>
@@ -214,7 +231,7 @@ so when we have our Layout as an element that we passing to Router definition th
 > The `Outlet` component is similar to the concept of `children` in React's compound components, serving as a placeholder where child route elements will render.
 
 
-##### Relative Paths
+##### Relative Paths (Routes)
 
 The way that ReactRouter is works under the hood, is when it is looking at a child route like `/host/income` and etc.. inside that context of the `root(" is the base URL of your application.")` it knows that this route is a child of `/`. 
 Until now we included `/` at the beginning of every one of our paths *but the truth that is we don't need to do that all the time*, *and in fact it's gonna end up making or lives a lot easier to not have to have an absolute path like this every time*,because this Url  give us the complete view of the path from the very home page at `/` all the way to the end.
@@ -335,6 +352,25 @@ Imagine we have two routes: `/users` and `/users/profile`.  Without the `end` pr
 > *L*ittle Funny note when we provide a prop name and not set it equal to some thing it considers it a `boolean` `  <NavLink to="/host"   'end={true} or just end' style={({ isActive }) => isActive ? activeStyles : null} >`
 
 
+##### Relative Links
+When we created `NavLink` we create it as absolute path and the truth in actually we don't need to do that because `HostLayout` getting rendered in `app.jsx` in `host` route which is already child of `/`.
+Because our element(income,etc..) is part of the route for path of `host` the element can assume the path of `host` in all of its link.
+<!-- 
+I think is relative = path the way that relative links working 
+ -->
+
+Within nested routes, relative links simplify navigating **up** one level in the path.  Using `..` in a `<Link>` component allows you to move to the **parent** route without specifying the full path also by using `.`  we can link to the route we are currently on.
+
+
+
+
+
+
+> Relative links are helpful with deeply nested routes because they allow navigation anywhere within the application without needing to specify the entire route path from the beginning.
+
+
+When we use Relative links what we are relative to is the route hierarchy in `app.jsx` it's not necessarily relative to the path  that we currently seein the Url, If we want to be relative to the path we should add `relative ='path'` in `<Link>`  **and this means that when we say we're going `..` back a route we mean that we're going back one level in our routing structure(path structure)not up a level in our routing hierarchy**
+with this setup reactrouter knows that there a `/` here and know that we're just going to go back one little path segment 
 
 
 
@@ -347,6 +383,197 @@ Imagine we have two routes: `/users` and `/users/profile`.  Without the `end` pr
 
 
 
+<!-- 
+pass the information that we gathered to the child routeso that they have access to that information in order to display it correctly
+
+ -->
+
+
+
+
+#### [Outlet Context](https://api.reactrouter.com/v7/functions/react_router.useOutletContext.html) 
+In  `HostVanDetails` we have our `navigationBar` and our `outlet` and there which we get information from the server it's saved  into `state` locally in this component and if we were just rendering a `child`  component  we could pass this information down through props to that component, In this case we don't rendering (Details,photos,pricing) because we don't know which one of those  is gonna appear in the place of `outlet`.
+
+fortunately reactRouter makes it really easy  for us to get information into the components that are renders as part of this `outlet`
+
+```jsx
+
+// Details.jsx
+import React from "react"
+import { useOutletContext } from "react-router-dom"
+
+export default function HostVanInfo() {
+    const { name,type,description } = useOutletContext()
+    
+    return (
+                    <p> <b>Name : </b> {name}  </p>
+            <p> <b>Category : </b>  {type} </p>
+            <p> <b>Description : </b> {description}  </p>
+            <p> <b>Visibility : </b> {"Public"} </p>
+    )
+}
+
+// In HostVanDetails all we should add is 
+<Outlet  context={currentVan}/>
+
+
+```
+
+
+
+
+### Search/Query Parameters 
+What Query Parameters are ?? 
+The idea of query params is that  it can represnet some kind of change in UI, what we actually see on the page  in our app .
+Probably the most common tasks  for query parameters are  when we want to do any kind of sorting,filterin, pagination all these usually happens within query params 
+
+
+Very helpful way to think about query params is to think of them **as single source of truth for certain application state**,sometimes query params which  will exist in the URL can be used as a single source of truth for parts of our application state 
+A really helpful metric is to ask our selfs : 
+"Should a user be able to revisit or share this page just like it is ? if "YES", then we might consider **raising the state up to the URL in a query parameter**"
+
+**But What About ReactState ?** 
+- Maybe you have done some filtering , sorting, pagination  using React State as a single source of truth  but what happens to state when you refresh the page ? you know every single state gonna be reseted to what ever you initialized your state as, 
+- also we cannot share the current state of our react app state with friend because when ever they click the link the page will be fresh state to them
+<!-- - 
+In reality reactRouter  is handling our URL but under the hood it's using the native browser APIs that are dealing with the URL>>
+ -->
+
+**Query Parameters**
+- Key/Value Pairs in The URL
+- Begins with `?`
+  - /vans?type=simple 
+- Multiple params using `&`
+  -  /van?type=simple&sort=price
+  
+
+
+#### [UseSearchParams](https://api.reactrouter.com/v7/functions/react_router.useSearchParams.html)
+> In reality reactRouter  is handling our URL but under the hood it's using the native browser APIs that are dealing with the URL
+[URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
+
+The simplest way to add searchParameters is to simply use a `<link>` element at this point we're pretty familiar with using `link` to send us to a specific **path**. But we also can us a `link` to not specify a new path that we're going to, but insead  to specify a query
+
+```jsx
+      <div>
+        <Link to="?type=jedi">Jedi</Link>
+      </div>
+```
+when we click this link we will notice that its adding `?type=jedi` to the URl, and because it started with a **Question Mark** ReactRouter knew that it wasn't changing  router per se but is adding some search params.
+
+> When SearchParameters change, The Component re-Render. Seach Parameters are greate for something that's going to persist from one user to the next.
+************
+
+To clear all filters(SearchQueries)
+```jsx
+<Link to=".">Clear Filters(Search Queries)</Link>
+<Link to="">Clear Filters(Search Params)</Link>
+```
+In the example above we learned how to set query params using a `link` element in React Router but don't do it with `setSearchParams` that `useSearchParams` provide to us, if we're just going to link directly to a hard coded version of our searchParams we don't necessarily need that  `setSearchParams(setter function)` but however there instances where we may need to use it.
+Just  like `useState` the setter function in `useSearchParams` can either take a new value for the searchParams which will completely replace the old value or it can take a callback function 
+```jsx
+// The value of setSearchParams can be string or object like below 
+
+// TAKE A NEW VALUE
+        <button onClick={() => setSearchParams({ type: "jedi" })}>Jedi</button>
+
+        // TAKE CALLBACK FUNCTION
+               <button onClick={() => handleFilterChange("type", "jedi")}>Jedi</button>
+
+  function handleFilterChange(key, value) {
+    setSearchParams(prevParams => {
+      if (value === null) {
+        prevParams.delete(key)
+      } else {
+        prevParams.set(key, value)
+      }
+      return prevParams
+    })
+  }
+
+```
+##### Merge Existing QueryParameters 
+If we want to merge existing query params with the one that we're trying to add we should use CallBack Function way : 
+In the example above in `handleFilterChange` is this where `useSearchParams setterFunction` diverges pretty dramatically from the `useState setterFunction` because in stateSetterFunction *we would never take the state that we received and make any direct modifications to it, Instead we would always create a copy of it somehow and only use its old values in order to determine the new value and we would return a complete new state.* But in ReactRouter its completely okay for us to modify the previous params object.
+
+
+
+for mergign existingQuery parameters with `link` instead of `button` we can create Vanilla js function 
+```js
+ function genNewSearchParamString(key, value) {
+    const sp = new URLSearchParams(searchParams)
+    if (value === null) {
+      sp.delete(key)
+    } else {
+      sp.set(key, value)
+    }
+    return `?${sp.toString()}`
+  }
+```
+
+> If we try to styled someThing based on QueryParams using `NavLink(isActive)` it's not gonna work becuase the `NavLink` doesn't care about our searchParameters.
+
+
+
+
+
+
+#### **Link State** So You Don't Loose Your Filters While Navigate Around 
+
+So we know that we want to be able to filter the list  click on one item and then have some information that show us what the filter used to be on the last page 
+
+there's usually a lot of  solutions to do this:
+- one of them is take the search params directly from the current URL and instead of linking to /vans/5 we coult just tack on that querystring taht represent the search params and make it lead us to /vans/5/?type=something 
+ this way can be used when want to keep our filters when we sharinh the URL with friends.
+
+- another way is using `History State`:  which is the browser ability to save some kind of state between one link or one url and the next.
+
+```jsx 
+
+            <Link to={item.id} state={{ search: searchParams.toString() }}>
+
+
+```
+#### useLocation
+
+To receive the state from incoming `<Link>` we gonna use `useLocation` which is more like `useParams` where it doesn't bring in an array like we have with `useSearchParams`. `useLocation` will return object with pretty helpful properties 
+```js
+
+
+{
+  pathname: '/vans/5' // pathname : gives us the absolute path to where we currently are.
+, search: '', //Would have a queryString(QueryParams) if this current page(path) had a queryString
+hash: '', 
+state: {search: 'type=luxury'}// state that passed to <link> component ,
+ key: 'emy8w7js'
+ 
+ }
+
+```
+
+> There is a limitation to this which is if we copy the URL  and send it a friend their browser doesn't have the history State  because it's some thing specific to the browser so if we try the same URL using another browser it not gonna work too.
+
+
+
+
+
+### 404 Page 
+Really important part of any application is being able to give useful information to people when they come to a path that doens't actually exist on your site, Sometimes this happens if we you have outdated links within your own site and they lead to pages that no longer exist or it might happen if somebody else links to your site and thery either got the link wrong or they are using outdated link that no longer exist.
+
+to make it using ReactRouter we use `splat route(catchAll Route)` and that has everything to do with what you put for your path 'which say catch any thing that doesn't match else where'
+
+```jsx
+// it's preferably to put it at the end of our list of paths
+<Route path="*" element={<h1>Page not found!</h1>} />
+
+```
+
+
+<!-- 
+
+One Thing that's relly cool About ReactRouter6 is that it's a lot more intelligent under the hood about scoring the paths that we have based on what the actual text of our URL is, What I mean is that even though our catch all  path is at the top of our list of paths, i can still navigate around my site and it's not gonan to prefer the first when in the list instead ,it's gonna give a score under the hood about which of these paths best matches wehre i currently i am in my site , in the past we did have to worry about what order we put things in.
+
+ -->
 
 
 
@@ -356,9 +583,102 @@ Imagine we have two routes: `/users` and `/users/profile`.  Without the `end` pr
 
 
 
+### Happy vs. Sad Paths
+
+**Happy Path** : this is what we've mostly been coding it's when 
+    -  We assume that everything goes according to plan exactly as we hope it does.
+    - Doesn't account for any erros or other problems that might happen in our code anytime we're reaching out to another service like an API or backend or a database or whatever it might be these things are out of our control and it's not terribly uncommon for some kind of prolbem or failures to happens 
+
+So that's why it's important as experienced software engineers for us to always take into account the 
+
+**Sad Path**
+  - This path forces us to imagine what could possibly  go wrong and to plan accordingly there is where we start thinking about things like (**Error handling** , **loading state**, **form validation**  and all those beneficial user experience things that we might want to add into our app)
+
+
+<!-- a major reason that we need `loading state` and `error handling` is because we are only start our fetch request after this components load. Well if we didn't load this component before we had access to that data then we wouldn't have to worry about that and theoretically the same would be true of the loading and error state because we're sort of prematurely jumping to route and then starting a fetch request to the data there a bunch of little edge cases that we need to handle  -->
+
+A major reason we need a `loading` state and `error handling` is that we only start our fetch request after the component has loaded. If we had access to the data before loading the component, we wouldn’t have to worry about these states. Theoretically, the same would apply to `loading and error states` because we are prematurely navigating to the route and then starting a fetch request. This introduces several edge cases that need to be handled.
 
 
 
+
+<!-- 
+now we could go down this rabbit hole for  quite some time  and i guess at this time  il will just ggiv eanother plug for the full version of this course if  you're really interest indiving in this 
+- Data layer API's 
+- REact Server Component 
+- Nextjs , remix and how they improve the data loading aspects of React 
+
+ -->
+Now all this lead us to 
+
+#### Data Layer API's 
+ReactRouter has introduced to us a way that  we can load our data before it ever transition us to the route, which will allow us to get rid of quite a bit of our boilerplate code that we have 
+
+##### Loaders
+<!-- The Creators of ReactRouter are also creators of remix  -->
+
+How loaders effect ReactRouter ??
+as we saw we are currently using a `useEffect` in order to fetch our data and for a really long time in React, this was kind of taught as the de facto way to fetch data for our components. 
+
+Let's say that we are currenlty on the `/about` and we want to transfer over the `/vans` so we click the link in our navbar  which will take us  to vans and what happens is the about page goes away. It get swapped for the 'vans' page  and because we're fetching our data inside of `useEffect` it immediately start loading the data (after the component rendering) ,or  rather fetching the data  from some external source. Oftentimes this request is pretty fast and once the request comes back with a  response, then we get some JSON from the  API that we were fetching data from  And then React does it thing where it re-render it takes that JSON and displays it the way that we told it to in the code. And we can certainly make this work. **But** because we're only fetching the data after we have already loaded the page (mounted the component that represent our page), we have a lot of extra stuff that we need to add like : 
+- state for vans them selves 
+- loading state
+- Error state
+- UseEffect which fetching the data and have some error handling built 
+- Handling different return if the component still loading or there is any error
+and it's not the end if the world if we add extra lines to our code to make better UserExperience 
+
+**But** let's take a look at the paradigm shift that we're about to learn when we use a loader for fetching our data instead. This might seem like a small tweak , but we're going to see how it can dramatically change our code
+
+So let's say we are on `/about`  we click over on the `/vans` and the first thing that happens it is delays for just a moment or two During that delay, it's starting the fetch  request to get the data for the vans page and that way when the data is finished coming back from the request  it is already a part of the Vans page when it gets loaded up,
+Again it might seem like a small difference  but we're going to see how this will allow us to simplify quite a bit of the code that we have
+
+**How we will end up use Loaders?**
+
+1. Export a function we will call it **Loader**(it doens't technically matter what it's called) from the page that fetches the  data that page will need.
+
+so we will create another function in our component above it probably  and that will be the function that get the data, Since we 're exporting it from here "the component that need the data"
+
+
+over in our index.jsx (app.jsx) or  **where we have our route definitions** we are gonna
+
+2. pass **Loader** prop to the route that render that page and pass in the **Loader** function
+
+and back in the page(component) that needs the data 
+
+
+3. Use the `useLoaderData` hook: which allows us to get whatever data was returned from the function that is doing the fetch request 
+![Loaders](./src/images/mage-8.png)
+
+
+There is one tiny little problem before we can start working on this and that is we need to opt in to the new *data layer API's* and the way we will do that will require us to make some changes to our browser router setup that we have
+
+### Protected Routes 
+The purpose of creating protected routes for us is to stop any data fetching of sensitive information. That way only the logged-in user is allow to access their data as opposed to anybody else.
+
+So The approach we will take with protected routes is by preventing any rendering of components that are fetching data. So the logical flow is if the user isn't logged-in, then we need to stop the data fetching by just blocking components from rendering and instead send them to the login-page.
+Since fetching is happening inside the components if those components never render the fetching never happens.
+
+we'have this set of nested routes  in our case we plan to protect everything from host on down . so any thing that start with /host will require the user to be logged-in first 
+![alt text](./src/images/image-6.png)
+In order to do that , we are gonna be wrapping a parent route around our host routes that is a layout route and we'll call this layout route 'authrequired'  and its sole purpose is to check if the user is logged-in and if they are to then render these  host routes "The `outlet` inside the layout route"
+![alt text](./src/images/image-7.png)
+and if they are not render login page
+
+
+
+#### Navigate 
+ReactRouter provide a component that actually is a bit more forceful in sending the user to another route, and that component is called `Navigate` The idea behind navigate is if it ever is rendered then it will automatically forward the person to the next route. Unlike a `link` which is rendered and the then if it gets clicked it send somebody to the next route.
+
+
+##### Navigation State 
+<!-- as `<link>` have state `Navigation` also have state where we can put information that we want pass to the next url to use these information can be 'message' or even **The current URL** so when  a user try access authentication required URL it can be redirected to the URL he Entered after authentication process  -->
+Just like the `<link>` element has a state, `<Navigation/>` also maintains a **state** where we can store information to pass to the next URL. This information could be a message or even the **current URL**. For instance, when a user tries to access an authentication-required page, they can be redirected to their originally requested URL after completing the authentication process.
+[example](https://github.com/remix-run/react-router/tree/main/examples/auth)
+
+### History Stack 
+Let's say we are on our home page we try to go to the host route which it tell us that we need to log in first so  I log in with my credentials and hit login and this successfully take me to the host page. However when i hit the browser's back button, it sends me back to the login page. This is  a confusing workflow because it's not uncommon to hit the back button trying to go back to the page we were at before the login page and is just a confusing experience in general, i can hit forward because i already logged in  and come to my host page but it is not a great user experience in the end.
+**Understanding why this happening and how to fix it requires us to know a little something about the history stack**
 ### Extra
 
 extra
