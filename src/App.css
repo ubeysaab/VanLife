@@ -14,6 +14,10 @@
   --verylightOrange: #FFEAD0;
 }
 
+.mt-5{
+  margin-top: 10px;
+}
+
 *,
 *::after,
 *::before {
@@ -297,13 +301,13 @@ main {
   box-shadow: none;
 }
 
-.vancard--host>a>.vancard__img {
-  width: 250px;
-  height: 160px;
+.vancard--host> a >.vancard__img {
+  width: 330px;
+height: 160px;
 }
 
 
-.vancard--horizontal>a>.vancard__img>img {
+.vancard--horizontal> a >.vancard__img> img {
   border-radius: 5px;
 }
 

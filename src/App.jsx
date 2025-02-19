@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 // Importing files and components 
 import './App.css'
-
+import Login from './Pages/Login'
 import Layout from './layouts/Layout'
 import Home from "./Pages/Home"
 import About from "./Pages/About"
@@ -38,6 +38,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="vans" element={<Vans />} />
           <Route path="vans/:id" element={<SingleVan />} />
+          <Route path="login" element={<Login />} />
 
 
           <Route path="host" element={<HostLayout />} >
@@ -46,6 +47,7 @@ function App() {
             <Route path="income" element={<Income />} />
             <Route path="reviews" element={<Reviews />} />
             <Route path="vans" element={<HostVans />} />
+
         
             <Route path="vans/:id" element={<HostVanDetails />}>
             <Route index element={<Details />} />

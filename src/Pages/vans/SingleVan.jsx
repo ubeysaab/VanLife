@@ -19,7 +19,7 @@ function SingleVan() {
   console.log(data)
   return (
     <section className="singlevan">
-      <Link to="/vans" style={{ display: "flex", alignItems: "center" }}><FaArrowLeft /> &nbsp; Back to all vans</Link>
+      <Link to=".." style={{ display: "flex", alignItems: "center" }}><FaArrowLeft /> &nbsp; Back to all vans</Link>
       <div className="singlevan__container">
         <div className="singlevan__img">
           <img src={data.imageUrl} alt="" />
