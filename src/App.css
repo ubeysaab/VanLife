@@ -421,3 +421,41 @@ span {
   font-weight: 900;
   text-decoration: underline;
 }
+
+.form-container{
+  padding-inline: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-btn,.form-input {
+  width: 100%;
+  outline: none;
+  border: none;
+}
+
+.form-btn,.form-input ~ .form-input{
+  margin-top: 10px;
+}
+
+.form-header {
+  margin-block: 1rem;
+}
+
+.form-input{
+  padding: 9px 13px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+.form-input:invalid , .form-input--error{
+  border: 1px solid red;
+}
+.error-message{
+  color: red;
+}
+
+.form-input::placeholder{
+  color: #aaa;
+}
+
