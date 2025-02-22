@@ -12,7 +12,7 @@ const basicShema = yup.object(
 // inside we put the different values that we want to validate for 
   {
     email:yup.string().email("Please Enter a valid E-mail").required(),
-    password:yup.string().min(8).matches(passwordRules,{message : "please create a stronger password "}).required()
+    password:yup.string().min(4,{message : "please create a stronger password "}).required()
 
 
     // confirmPassword : yp.string().oneof([yep.ref("password"),null],'Passwords must match')

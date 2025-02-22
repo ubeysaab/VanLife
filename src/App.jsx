@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 
 // Importing files and components 
 import './App.css'
+import AuthRequired from './Components/AuthRequired'
 import Login from './Pages/Login'
 import Layout from './layouts/Layout'
 import Home from "./Pages/Home"
@@ -25,6 +26,8 @@ import Photos from './Pages/host/hostVanDetails/Photos'
 function App() {
 
 
+
+
   return (
 
     // the app will act as a table of content of my routes
@@ -41,6 +44,7 @@ function App() {
           <Route path="login" element={<Login />} />
 
 
+          <Route element={<AuthRequired/>}>
           <Route path="host" element={<HostLayout />} >
             {/* here i know i should use index but i leave it like this  */}
             <Route path='' element={<Dashboard />} />
@@ -55,6 +59,7 @@ function App() {
             <Route path="photos" element={<Photos />} />
             </Route>
 
+          </Route>
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Route>

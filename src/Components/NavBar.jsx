@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { RiLogoutCircleRLine } from "react-icons/ri";
 
 // Importing images and components 
 import icon from "../assets/Icon.png"
@@ -38,10 +39,14 @@ function NavBar() {
             className={"icon"}
 
             to="/login"  ><li><img src={icon} alt="" /></li></NavLink >
+            
+          {localStorage.getItem('user')&&<RiLogoutCircleRLine  className='icon' onClick={()=>{
+            localStorage.removeItem('user')
+          }}/>}
         </ul>
          
-       
-          
+            
+
       </div>
     </nav>
   )
