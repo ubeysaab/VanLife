@@ -11,6 +11,7 @@ const [user,setUser] = useState(JSON.parse(localStorage.getItem("user")))
  return  <Navigate
   to={'/login'}
   state={{previousPath:location.pathname}}
+  replace
   />
 }
 

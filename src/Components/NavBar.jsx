@@ -21,24 +21,24 @@ function NavBar() {
               return isActive ? "activeLink"
                 : ""
             }}
-            to="/about"><li>About</li></NavLink >
+            to="about"><li>About</li></NavLink >
           <NavLink
             className={({ isActive }) => {
               return isActive ? "activeLink"
                 : ""
             }}
-            to="/vans"><li>Vans</li></NavLink >
+            to="vans"><li>Vans</li></NavLink >
           <NavLink
             className={({ isActive }) => {
               return isActive ? "activeLink"
                 : ""
             }}
 
-            to="/host"  ><li>Host</li></NavLink >
+            to="host"  ><li>Host</li></NavLink >
           <NavLink
             className={"icon"}
 
-            to="/login"  ><li><img src={icon} alt="" /></li></NavLink >
+            to="login"  ><li><img src={icon} alt="" /></li></NavLink >
             
           {localStorage.getItem('user')&&<RiLogoutCircleRLine  className='icon' onClick={()=>{
             localStorage.removeItem('user')

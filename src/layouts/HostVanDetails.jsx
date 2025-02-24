@@ -16,7 +16,9 @@ function HostVanDetails() {
     <section style={{padding:'20px'}}>
 
 
-      <Link to=".." style={{ display: "flex", alignItems: "center" }}><FaArrowLeft /> &nbsp; Back to all vans</Link>
+      <Link to=".." 
+      relative='path'
+      style={{ display: "flex", alignItems: "center" }}><FaArrowLeft /> &nbsp; Back to all vans</Link>
 
       <VanCard host horizontal {...vanDetails} />
       <nav className='' style={{width:'80%'}} >

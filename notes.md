@@ -677,8 +677,36 @@ Just like the `<link>` element has a state, `<Navigation/>` also maintains a **s
 [example](https://github.com/remix-run/react-router/tree/main/examples/auth)
 
 ### History Stack 
-Let's say we are on our home page we try to go to the host route which it tell us that we need to log in first so  I log in with my credentials and hit login and this successfully take me to the host page. However when i hit the browser's back button, it sends me back to the login page. This is  a confusing workflow because it's not uncommon to hit the back button trying to go back to the page we were at before the login page and is just a confusing experience in general, i can hit forward because i already logged in  and come to my host page but it is not a great user experience in the end.
+Let's say we are on our home page we try to go to the `host` route which it tell us that we need to log in first so  I log in with my credentials and hit `login` and this successfully take me to the `host` page. However when i hit the browser's back button, it sends me back to the `login` page. This is  a confusing workflow because it's not uncommon to hit the back button trying to go back to the page we were at before the `login` page and is just a confusing experience in general, i can hit forward because i already logged in  and come to my `host` page but it is not a great user experience in the end.
 **Understanding why this happening and how to fix it requires us to know a little something about the history stack**
+So when we went to our site lets' say we come to the `home page '/' ` then we might even navigate to the `/about` page  and then when we click the `/host` page,  and we will see that 
+`/host`  and `/login` pages  tacked on the to our history stack that's because we did render the `host` route, and it just simply then navigated us to a different route which is `login` route so these two comes together because `/host` navigate us immediately to `/login` page so when we successfully `/login` we go to the `/host` route again but our `/login` page is still a part of our history ,
+![alt text](./src/images/image-9.png)
+ so the way we can fix this **When we navigate from the login page over to our host route again we gonna include an option in our navigate function** `replace:true` this option will make it  so that instead of tacking on another entry in our history stack it's goning to replace the current location with the old one 
+ ![alt text](./src/images/image-10.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Extra
 
 extra
