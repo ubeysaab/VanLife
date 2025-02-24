@@ -423,13 +423,24 @@ span {
 }
 
 .form-container{
-  padding-inline: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100dvw;
 }
 
-.form-btn,.form-input {
+.form{
+
+  display: block;
+  flex-grow: 1;
+  width: 100%;
+
+}
+
+
+
+.form-btn, .form-input {
+  display: block;
   width: 100%;
   outline: none;
   border: none;
@@ -448,11 +459,15 @@ span {
   border-radius: 6px;
   border: 1px solid #ddd;
 }
+
+
 .form-input:invalid , .form-input--error{
   border: 1px solid red;
 }
 .error-message{
   color: red;
+  display: block;
+  width: 100%;
 }
 
 .form-input::placeholder{

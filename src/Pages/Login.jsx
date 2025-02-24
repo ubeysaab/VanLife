@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,useLocation } from 'react-router-dom'
 import { useFormik } from 'formik'
 import validationSchema from "../Schemas/shemas"
 import {handleLogin} from '../api'
 function Login() {
+const location =useLocation()
+const previousPath = location?.state?.previousPath
 const navigate= useNavigate()
 const [error,setError] =useState(null)
+
   const formik = useFormik(
     {
       //initial values = values when we use it down in form
@@ -22,16 +25,18 @@ const [error,setError] =useState(null)
       //values are our form values 
       //actions are some functions provided by formik 
        onSubmit:  async (values,actions)=>{
-        console.log('submitting')
-        // console.log(values)
-        // console.log(actions)
+
         //! because handle login is async this also should be async
          const data = await handleLogin(values)
          if(data.user){
           localStorage.setItem('user',JSON.stringify(data))
-          navigate('/host')
+          navigate(previousPath)
          }else{
            setError(data.message)
+           setTimeout(() => {
+            setError(null)
+           }, 6000);
+           formik.resetForm()
          }
        
         
@@ -39,15 +44,15 @@ const [error,setError] =useState(null)
     }
   )
   
+  const {state} = useLocation()
   return (
     <main className='form-container'>
       <div>
       <h2 className='form-header'>Sign in to your account</h2>
-      <form 
+      <form className='form'
 
       onSubmit={formik.handleSubmit}
       >
-        {/* <label for='email'>Email</label> */}
         <input type="email" 
         name="email" 
         id="email"
@@ -60,8 +65,7 @@ const [error,setError] =useState(null)
 
         onBlur={formik.handleBlur}
         /> 
-        {/* {formik.errors &&formik.touched.email && <span className='error-message'>{formik.errors.email}</span>} */}
-        {/* <label for='password'> Password</label> */}
+        {formik.errors &&formik.touched.email && <span className='error-message'>{formik.errors.email}</span>}
         <input type="password" 
         className='form-input'
         name="password" 
@@ -71,7 +75,7 @@ const [error,setError] =useState(null)
         placeholder='Enter Your Password'
         onBlur={formik.handleBlur}
         /> 
-          {/* {formik.errors&&formik.touched.password && <span className='error-message'>{formik.errors.password}</span>} */}
+          {formik.errors&&formik.touched.password && <span className='error-message'>{formik.errors.password}</span>}
         
         {error && <span className='error-message'>{error}</span>}
 

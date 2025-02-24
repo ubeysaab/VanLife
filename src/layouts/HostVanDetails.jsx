@@ -10,7 +10,7 @@ function HostVanDetails() {
   useEffect(() => {
     fetch(`/host/vans/${id}`)
       .then(res => res.json())
-      .then(data => setVanDetails(data.vans[0]))
+      .then(data => setVanDetails(data.vans))
   }, [])
   return (
     <section style={{padding:'20px'}}>

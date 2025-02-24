@@ -11,11 +11,10 @@ const [hostVans,setHostVans]= useState([])
     .catch(error => {throw new Error(error)})
     
   },[])
-  console.log('host vans')
   return (
     
     <section>
-      { hostVans.map(item => <VanCard name={item.name}  horizontal imageUrl={item.imageUrl} price={item.price} id={item.id}/>)}
+      { hostVans.map(item => <VanCard name={item.name}  key={item.id} horizontal imageUrl={item.imageUrl} price={item.price} id={item.id}/>)}
     </section>
   )
 }
